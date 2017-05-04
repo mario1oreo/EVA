@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fosun.creepers.projects</groupId>
+    <artifactId>EVA</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>eva_creepers</name>
+    <description>EVA分布式爬虫</description>
+
+    <dependencies>
+
+        <!-- akka actor -->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.11</artifactId>
+            <version>2.4.11</version>
+        </dependency>
+
+        <!--akka kernel-->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-kernel_2.11</artifactId>
+            <version>2.4.11</version>
+        </dependency>
+
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>0.8.2.0</version>
+        </dependency>
+    </dependencies>
+</project>
