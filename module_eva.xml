@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_eva" default="compile.module.eva">
+  <dirname property="module.eva.basedir" file="${ant.file.module_eva}"/>
+  
+  <property name="module.jdk.home.eva" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.eva" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.eva" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.eva" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="eva.output.dir" value="${module.eva.basedir}/target/classes"/>
+  <property name="eva.testoutput.dir" value="${module.eva.basedir}/target/test-classes"/>
+  
+  <path id="eva.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="eva.module.production.classpath">
+    <path refid="${module.jdk.classpath.eva}"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-actor_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-library:2.11.11.classpath"/>
+    <path refid="library.maven:_com.typesafe:config:1.3.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-java8-compat_2.11:0.7.0.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-agent_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-stm:scala-stm_2.11:0.8.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-camel_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.apache.camel:camel-core:2.13.4.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:2.2.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-metrics_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-sharding_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-tools_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-distributed-data_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.lmdbjava:lmdbjava:0.0.5.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-ffi:2.1.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:1.2.14.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-commons:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-analysis:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-tree:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-util:5.0.3.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-x86asm:1.0.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-constants:0.9.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-multi-node-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-osgi_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.core:4.3.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.compendium:4.3.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-protobuf_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-query_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-tck_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scalatest:scalatest_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scalactic:scalactic_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-reflect:2.11.8.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-xml_2.11:1.0.5.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-remote_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_io.netty:netty:3.10.6.final.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-driver:1.2.5.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-client:1.2.5.classpath"/>
+    <path refid="library.maven:_org.agrona:agrona:0.9.5.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-slf4j_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.23.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.0.classpath"/>
+    <path refid="library.maven:_com.typesafe:ssl-config-core_2.11:0.2.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-typed_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-contrib_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-kernel_2.11:2.5-m1.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka_2.10:0.8.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka-clients:0.8.2.0.classpath"/>
+    <path refid="library.maven:_net.jpountz.lz4:lz4:1.2.0.classpath"/>
+    <path refid="library.maven:_org.xerial.snappy:snappy-java:1.1.1.6.classpath"/>
+    <path refid="library.maven:_com.yammer.metrics:metrics-core:2.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.6.1.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.16.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_net.sf.jopt-simple:jopt-simple:3.2.classpath"/>
+    <path refid="library.maven:_com.101tec:zkclient:0.3.classpath"/>
+    <path refid="library.maven:_org.apache.maven.archetypes:maven-archetype-quickstart:1.1.classpath"/>
+  </path>
+  
+  <path id="eva.runtime.production.module.classpath">
+    <pathelement location="${eva.output.dir}"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-actor_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-library:2.11.11.classpath"/>
+    <path refid="library.maven:_com.typesafe:config:1.3.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-java8-compat_2.11:0.7.0.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-agent_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-stm:scala-stm_2.11:0.8.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-camel_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.apache.camel:camel-core:2.13.4.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:2.2.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-metrics_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-sharding_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-tools_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-distributed-data_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.lmdbjava:lmdbjava:0.0.5.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-ffi:2.1.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:1.2.14.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:native:1.2.14.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-commons:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-analysis:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-tree:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-util:5.0.3.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-x86asm:1.0.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-constants:0.9.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-multi-node-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-osgi_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.core:4.3.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.compendium:4.3.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-protobuf_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-query_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-tck_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scalatest:scalatest_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scalactic:scalactic_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-reflect:2.11.8.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-xml_2.11:1.0.5.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-remote_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_io.netty:netty:3.10.6.final.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-driver:1.2.5.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-client:1.2.5.classpath"/>
+    <path refid="library.maven:_org.agrona:agrona:0.9.5.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-slf4j_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.23.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.0.classpath"/>
+    <path refid="library.maven:_com.typesafe:ssl-config-core_2.11:0.2.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-typed_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-contrib_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-kernel_2.11:2.5-m1.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka_2.10:0.8.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka-clients:0.8.2.0.classpath"/>
+    <path refid="library.maven:_net.jpountz.lz4:lz4:1.2.0.classpath"/>
+    <path refid="library.maven:_org.xerial.snappy:snappy-java:1.1.1.6.classpath"/>
+    <path refid="library.maven:_com.yammer.metrics:metrics-core:2.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.6.1.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.16.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_net.sf.jopt-simple:jopt-simple:3.2.classpath"/>
+    <path refid="library.maven:_com.101tec:zkclient:0.3.classpath"/>
+    <path refid="library.maven:_org.apache.maven.archetypes:maven-archetype-quickstart:1.1.classpath"/>
+  </path>
+  
+  <path id="eva.module.classpath">
+    <path refid="${module.jdk.classpath.eva}"/>
+    <pathelement location="${eva.output.dir}"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-actor_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-library:2.11.11.classpath"/>
+    <path refid="library.maven:_com.typesafe:config:1.3.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-java8-compat_2.11:0.7.0.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-agent_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-stm:scala-stm_2.11:0.8.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-camel_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.apache.camel:camel-core:2.13.4.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:2.2.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-metrics_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-sharding_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-tools_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-distributed-data_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.lmdbjava:lmdbjava:0.0.5.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-ffi:2.1.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:1.2.14.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:native:1.2.14.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-commons:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-analysis:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-tree:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-util:5.0.3.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-x86asm:1.0.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-constants:0.9.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-multi-node-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-osgi_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.core:4.3.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.compendium:4.3.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-protobuf_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-query_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-tck_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scalatest:scalatest_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scalactic:scalactic_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-reflect:2.11.8.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-xml_2.11:1.0.5.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-remote_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_io.netty:netty:3.10.6.final.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-driver:1.2.5.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-client:1.2.5.classpath"/>
+    <path refid="library.maven:_org.agrona:agrona:0.9.5.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-slf4j_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.23.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.0.classpath"/>
+    <path refid="library.maven:_com.typesafe:ssl-config-core_2.11:0.2.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-typed_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-contrib_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-kernel_2.11:2.5-m1.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka_2.10:0.8.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka-clients:0.8.2.0.classpath"/>
+    <path refid="library.maven:_net.jpountz.lz4:lz4:1.2.0.classpath"/>
+    <path refid="library.maven:_org.xerial.snappy:snappy-java:1.1.1.6.classpath"/>
+    <path refid="library.maven:_com.yammer.metrics:metrics-core:2.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.6.1.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.16.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_net.sf.jopt-simple:jopt-simple:3.2.classpath"/>
+    <path refid="library.maven:_com.101tec:zkclient:0.3.classpath"/>
+    <path refid="library.maven:_org.apache.maven.archetypes:maven-archetype-quickstart:1.1.classpath"/>
+  </path>
+  
+  <path id="eva.runtime.module.classpath">
+    <pathelement location="${eva.testoutput.dir}"/>
+    <pathelement location="${eva.output.dir}"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-actor_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-library:2.11.11.classpath"/>
+    <path refid="library.maven:_com.typesafe:config:1.3.1.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-java8-compat_2.11:0.7.0.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-agent_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scala-stm:scala-stm_2.11:0.8.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-camel_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.apache.camel:camel-core:2.13.4.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:2.2.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-metrics_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-sharding_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-cluster-tools_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-distributed-data_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.lmdbjava:lmdbjava:0.0.5.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-ffi:2.1.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:1.2.14.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jffi:native:1.2.14.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-commons:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-analysis:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-tree:5.0.3.classpath"/>
+    <path refid="library.maven:_org.ow2.asm:asm-util:5.0.3.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-x86asm:1.0.2.classpath"/>
+    <path refid="library.maven:_com.github.jnr:jnr-constants:0.9.6.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-multi-node-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-osgi_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.core:4.3.1.classpath"/>
+    <path refid="library.maven:_org.osgi:org.osgi.compendium:4.3.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-protobuf_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-query_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-persistence-tck_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.scalatest:scalatest_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scalactic:scalactic_2.11:3.0.0.classpath"/>
+    <path refid="library.maven:_org.scala-lang:scala-reflect:2.11.8.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-xml_2.11:1.0.5.classpath"/>
+    <path refid="library.maven:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-remote_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_io.netty:netty:3.10.6.final.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-driver:1.2.5.classpath"/>
+    <path refid="library.maven:_io.aeron:aeron-client:1.2.5.classpath"/>
+    <path refid="library.maven:_org.agrona:agrona:0.9.5.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-slf4j_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.23.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.0.classpath"/>
+    <path refid="library.maven:_com.typesafe:ssl-config-core_2.11:0.2.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-stream-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-testkit_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-typed_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-contrib_2.11:2.5.1.classpath"/>
+    <path refid="library.maven:_com.typesafe.akka:akka-kernel_2.11:2.5-m1.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka_2.10:0.8.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.kafka:kafka-clients:0.8.2.0.classpath"/>
+    <path refid="library.maven:_net.jpountz.lz4:lz4:1.2.0.classpath"/>
+    <path refid="library.maven:_org.xerial.snappy:snappy-java:1.1.1.6.classpath"/>
+    <path refid="library.maven:_com.yammer.metrics:metrics-core:2.2.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.6.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.6.1.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.16.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_net.sf.jopt-simple:jopt-simple:3.2.classpath"/>
+    <path refid="library.maven:_com.101tec:zkclient:0.3.classpath"/>
+    <path refid="library.maven:_org.apache.maven.archetypes:maven-archetype-quickstart:1.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.eva">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.eva">
+    <patternset refid="excluded.from.module.eva"/>
+  </patternset>
+  
+  <path id="eva.module.sourcepath">
+    <dirset dir="${module.eva.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="eva.module.test.sourcepath">
+    <dirset dir="${module.eva.basedir}">
+      <include name="src/test/java"/>
+      <include name="src/test/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.eva" depends="compile.module.eva.production,compile.module.eva.tests" description="Compile module EVA"/>
+  
+  <target name="compile.module.eva.production" depends="register.custom.compilers" description="Compile module EVA; production classes">
+    <mkdir dir="${eva.output.dir}"/>
+    <javac2 destdir="${eva.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.eva}/javac">
+      <compilerarg line="${compiler.args.eva}"/>
+      <bootclasspath refid="eva.module.bootclasspath"/>
+      <classpath refid="eva.module.production.classpath"/>
+      <src refid="eva.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.eva"/>
+    </javac2>
+    
+    <copy todir="${eva.output.dir}">
+      <fileset dir="${module.eva.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.eva.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.eva.tests" depends="register.custom.compilers,compile.module.eva.production" description="compile module EVA; test classes" unless="skip.tests">
+    <mkdir dir="${eva.testoutput.dir}"/>
+    <javac2 destdir="${eva.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.eva}/javac">
+      <compilerarg line="${compiler.args.eva}"/>
+      <bootclasspath refid="eva.module.bootclasspath"/>
+      <classpath refid="eva.module.classpath"/>
+      <src refid="eva.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.eva"/>
+    </javac2>
+    
+    <copy todir="${eva.testoutput.dir}">
+      <fileset dir="${module.eva.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.eva.basedir}/src/test/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.eva" description="cleanup module">
+    <delete dir="${eva.output.dir}"/>
+    <delete dir="${eva.testoutput.dir}"/>
+  </target>
+</project>
