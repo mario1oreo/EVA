@@ -44,7 +44,7 @@ public class ClientActorSystem implements Bootable {
 
     public void remoteActorDemo0() {
         log.info("Createing a reference to remote actor!");
-        remoteActor = system.actorFor("akka.tcp://ServerSys@127.0.0.3:2552/user/serverActor");
+        remoteActor = system.actorFor("akka.tcp://ServerSys@127.0.0.1:2553/user/serverActor");
         log.info("ServerActor with hashCode #" + remoteActor.hashCode());
         actor = system.actorOf(Props.create(ClientActor.class, remoteActor));
         actor.tell("Start - RemoteActorRef Creating Demo :0!", ActorRef.noSender());
@@ -100,6 +100,11 @@ public class ClientActorSystem implements Bootable {
         cAS.remoteActorRefDemo1();
         cAS.remoteActorRefDemo2();
         cAS.remoteActorRefDemo3();
+        try {
+            sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         cAS.shutdown();
     }
 }

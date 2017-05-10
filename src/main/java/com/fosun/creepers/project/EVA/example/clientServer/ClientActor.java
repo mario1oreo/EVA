@@ -30,7 +30,7 @@ public class ClientActor extends UntypedActor {
         if (message instanceof String) {
             if (((String) message).startsWith("Start")) {
                 log.info("Sending message to server - message # Hi gay ,look at here!!!!" + message);
-                romete.tell("Hi there!!", getSelf());
+                romete.tell("Hi serverActor,i come from clientActor !!" + message, getSelf());
             } else {
                 log.info("Message receive from Server --->>> " + message);
             }

@@ -24,21 +24,21 @@ public class ServerActor extends UntypedActor {
 
     @Override
     public void preStart() throws Exception {
-        log.info("Starting ServerActor instance # " + instanceCounter.incrementAndGet()+ ", hashconde # " + this.hashCode());
+        log.info("Starting ServerActor instance # " + instanceCounter.incrementAndGet() + ", hashconde # " + this.hashCode());
     }
 
     @Override
     public void postStop() throws Exception {
-        log.info("Stoping ServerActor instance # " + instanceCounter.getAndDecrement()+ ", hashconde # " + this.hashCode());
+        log.info("Stoping ServerActor instance # " + instanceCounter.getAndDecrement() + ", hashconde # " + this.hashCode());
     }
 
     @Override
     public void onReceive(Object message) throws Throwable {
         if (message instanceof String) {
-            log.info("I get something from client #:" + message);
-            getSender().tell(message + "get something!", ActorRef.noSender());
+            log.info("serverActor : I get something from client @@@@@@@:" + message);
+            getSender().tell(" #### serverActor get something!" + message, ActorRef.noSender());
         } else if (message instanceof PoisonPill) {
-            log.info("I get something from client #:" + message +" ,then I will stop ServerActor");
+            log.info("I get something from client #:" + message + " ,then I will stop ServerActor");
             getContext().system().stop(getSelf());
         }
     }
