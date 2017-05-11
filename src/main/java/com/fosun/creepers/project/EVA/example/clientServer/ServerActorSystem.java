@@ -25,6 +25,7 @@ public class ServerActorSystem implements Bootable {
         system = ActorSystem.create("ServerSys", ConfigFactory.load().getConfig("ServerSys"));
         log = Logging.getLogger(system, this);
         ActorRef actor = system.actorOf(Props.create(ServerActor.class), "serverActor");
+        ActorRef heartBeat = system.actorOf(Props.create(ServerHeartBeatActor.class), "serverHeartBeatActor");
     }
 
     public void startup() {

@@ -11,6 +11,8 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by Administrator on 2017/5/9.
  */
@@ -29,10 +31,14 @@ public class ClientActor extends UntypedActor {
 
         if (message instanceof String) {
             if (((String) message).startsWith("Start")) {
-                log.info("Sending message to server - message # Hi gay ,look at here!!!!" + message);
+                log.info("###" + this.getSelf().path() + this.hashCode() + "  Sending message to server - message # Hi gay ,look at here!!!!" + message);
                 romete.tell("Hi serverActor,i come from clientActor !!" + message, getSelf());
             } else {
-                log.info("Message receive from Server --->>> " + message);
+                log.info("###" + this.getSelf().path() + this.hashCode() + "  Message receive from Server --->>> " + message);
+                sleep(2000);
+                sender().tell("clientActor wait 2000ms to tell ServerActor something!  |||||  " + message, ActorRef.noSender());
+                log.info("###" + this.getSelf().path() + this.hashCode() + "  send wait message to Server--->>> ");
+
             }
         }
     }

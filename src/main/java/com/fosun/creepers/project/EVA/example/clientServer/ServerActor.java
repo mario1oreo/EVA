@@ -7,9 +7,11 @@ package com.fosun.creepers.project.EVA.example.clientServer;
 
 import akka.actor.ActorRef;
 import akka.actor.PoisonPill;
+import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import scala.concurrent.duration.Duration;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -25,6 +27,7 @@ public class ServerActor extends UntypedActor {
     @Override
     public void preStart() throws Exception {
         log.info("Starting ServerActor instance # " + instanceCounter.incrementAndGet() + ", hashconde # " + this.hashCode());
+        this.getContext().setReceiveTimeout(Duration.create("1 seconds"));
     }
 
     @Override
@@ -35,10 +38,13 @@ public class ServerActor extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Throwable {
         if (message instanceof String) {
-            log.info("serverActor : I get something from client @@@@@@@:" + message);
-            getSender().tell(" #### serverActor get something!" + message, ActorRef.noSender());
+            log.info("serverActor ### " + this.getSelf().path() + this.hashCode() + " ###: I get something from client @@@@@@@:" + message);
+            getSender().tell(" #### serverActor get something!" + message, getSelf());
+        } else if (message instanceof ReceiveTimeout) {
+            log.info("serverActor ### " + this.getSelf().path() + this.hashCode() + " ###:" + instanceCounter.get() + " ##: get message timeout&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            getContext().setReceiveTimeout(Duration.Undefined());
         } else if (message instanceof PoisonPill) {
-            log.info("I get something from client #:" + message + " ,then I will stop ServerActor");
+            log.info("serverActor ### " + this.getSelf().path() + this.hashCode() + " ###: ## " + instanceCounter.get() + " ##: get something from client #:" + message + " ,then I will stop ServerActor");
             getContext().system().stop(getSelf());
         }
     }
