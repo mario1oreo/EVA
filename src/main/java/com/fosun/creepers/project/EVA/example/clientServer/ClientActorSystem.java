@@ -52,11 +52,7 @@ public class ClientActorSystem implements Bootable {
         log.info("ServerActor with hashCode #" + remoteActor.hashCode());
         actor = system.actorOf(Props.create(ClientActor.class, remoteActor));
         actor.tell("Start - RemoteActorRef Creating Demo :0!", ActorRef.noSender());
-//        try {
-//            sleep(1000); //模拟还要额外耗时5秒
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
     }
 
     public void remoteActorRefDemo1() {
@@ -127,6 +123,16 @@ public class ClientActorSystem implements Bootable {
 //                e.printStackTrace();
 //            }
 //        }
+    }
+
+    public void remoteActorTestCluster() {
+        log.info("Createing a reference to remote actor!");
+//        remoteActor = system.actorFor("akka.tcp://ServerSys@10.166.0.201:2552/user/serverActor/");
+        remoteActor = system.actorFor("akka.tcp://ServerSys@127.0.0.1:2553/user/serverActor/");
+        log.info("ServerActor with hashCode #" + remoteActor.hashCode());
+        actor = system.actorOf(Props.create(ClientActor.class, remoteActor));
+        actor.tell("Start - RemoteActorRef Creating Demo :0!", ActorRef.noSender());
+
     }
     public static void main(String[] args) {
         ClientActorSystem cAS = new ClientActorSystem();

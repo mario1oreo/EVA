@@ -11,7 +11,6 @@ package com.fosun.creepers.project.EVA.example.cluster;
  */
 
 
-import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
@@ -42,15 +41,15 @@ public class SimpleClusterListener extends UntypedActor {
     //re-subscribe when restart
     @Override
     public void postStop() {
-        cluster.unsubscribe(getSelf());
+//        cluster.unsubscribe(getSelf());
+
     }
 
     @Override
     public void onReceive(Object message) {
         if (message instanceof MemberUp) {
             MemberUp mUp = (MemberUp) message;
-            log.info("Member is Up: {}", mUp.member());
-
+            log.info("!!!!!!!!!!!!!!!Member is Up: {}", mUp.member());
         } else if (message instanceof UnreachableMember) {
             UnreachableMember mUnreachable = (UnreachableMember) message;
             log.info("Member detected as unreachable: {}", mUnreachable.member());
@@ -61,7 +60,9 @@ public class SimpleClusterListener extends UntypedActor {
 
         } else if (message instanceof MemberEvent) {
             // ignore
-
+        } else if (message instanceof ClusterEvent.LeaderChanged) {
+            ClusterEvent.LeaderChanged leader = (ClusterEvent.LeaderChanged) message;
+            log.info("##############leader is changed: {}", leader.leader());
         } else {
             unhandled(message);
         }
@@ -70,7 +71,7 @@ public class SimpleClusterListener extends UntypedActor {
 
     public static void main(String [] args){
         System.out.println("Start simpleClusterListener");
-        ActorSystem system = ActorSystem.create("akkaClusterTest", ConfigFactory.load("application.conf"));
+        ActorSystem system = ActorSystem.create("metadataAkkaSystem", ConfigFactory.load("application-cluster.conf"));
         system.actorOf(Props.create(SimpleClusterListener.class), "simpleClusterListener");
         System.out.println("Started simpleClusterListener");
     }

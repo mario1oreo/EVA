@@ -39,7 +39,7 @@ public class ServerActor extends UntypedActor {
     public void onReceive(Object message) throws Throwable {
         if (message instanceof String) {
             log.info("serverActor ### " + this.getSelf().path() + this.hashCode() + " ###: I get something from client @@@@@@@:" + message);
-            getSender().tell(" #### serverActor get something!" + message, getSelf());
+//            getSender().tell(" #### serverActor get something!" + message, getSelf());
         } else if (message instanceof ReceiveTimeout) {
             log.info("serverActor ### " + this.getSelf().path() + this.hashCode() + " ###:" + instanceCounter.get() + " ##: get message timeout&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             getContext().setReceiveTimeout(Duration.Undefined());
